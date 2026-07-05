@@ -18,7 +18,7 @@ mirror or CDN tomorrow — without shipping new binaries.
 
 | file | market / app |
 |------|--------------|
-| `stations.json` | HK (iOS app + Android `hk` flavor) |
+| `stations-hk.json` | HK (iOS app + Android `hk` flavor) |
 | `stations-hktw.json` | Android `hktw` |
 | `stations-hksamsung.json` | Android `hksamsung` |
 | `stations-my.json` | Android `my` |
@@ -47,6 +47,6 @@ mirror or CDN tomorrow — without shipping new binaries.
 3. At the DNS registrar: add a CNAME record
    `feeds.likelylabs.com → likelylabs.github.io`.
 4. Wait for the certificate to provision, then enable "Enforce HTTPS".
-5. Verify `https://feeds.likelylabs.com/stations.json` returns the JSON.
+5. Verify `https://feeds.likelylabs.com/stations-hk.json` returns the JSON.
 6. Check reachability from a Mainland China vantage point. If blocked,
    host a mirror there and re-point the DNS record — no app change needed.
