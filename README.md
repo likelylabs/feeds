@@ -20,9 +20,14 @@ mirror or CDN tomorrow — without shipping new binaries.
 |------|--------------|
 | `stations-hk.json` | HK (iOS app + Android `hk` flavor) |
 | `stations-hktw.json` | Android `hktw` |
-| `stations-hksamsung.json` | Android `hksamsung` |
+| `stations-hksamsung.json` | Android `hksamsung` (dormant flavor) |
 | `stations-my.json` | Android `my` |
 | `stations-sg.json` | Android `sg` |
+
+> `hksamsung` shares `hk`'s RC project (`ios-hk-radio`) — there is no
+> separate Samsung RC value, so its feed carries the shared `stations`
+> value, exactly what RC serves those installs today. See
+> `radioapp-firebase-rest/CLAUDE.md`.
 
 ## Rules
 
@@ -32,8 +37,9 @@ mirror or CDN tomorrow — without shipping new binaries.
   going live**: clients prefer a freshly-fetched backup over their cached RC
   data, so a stale file here can downgrade users' station lists during any
   RC hiccup.
-- Update these files **every time** a `stations` RC value changes — one
-  step in the station-update routine, so they can't drift.
+- Update these files **every time** a `stations` RC value changes — run
+  `./refresh.sh` (delegates to `radioapp-firebase-rest/rc.py`), one step
+  in the station-update routine, so they can't drift.
 - Clients validate before applying (must parse to ≥ 1 station), fetch at
   most once per 6 hours, and switch back to RC automatically on its next
   success. HTTPS is required by the clients.
@@ -50,3 +56,12 @@ mirror or CDN tomorrow — without shipping new binaries.
 5. Verify `https://feeds.likelylabs.com/stations-hk.json` returns the JSON.
 6. Check reachability from a Mainland China vantage point. If blocked,
    host a mirror there and re-point the DNS record — no app change needed.
+
+## Mainland China reachability
+
+**2026-07-05:** GitHub Pages confirmed working from mainland China
+(Kevin's on-the-ground check). DNS testing agrees: Chinese public
+resolvers (AliDNS, 114DNS, DNSPod) return the legitimate GitHub Pages
+IPs for `*.github.io` — no poisoning observed. Deployed on GitHub Pages
+on this basis; if that ever changes, re-point the `feeds` DNS record at
+a mirror (step 6 above).
