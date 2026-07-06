@@ -66,6 +66,13 @@ EOF
 > condition exists, STOP and confirm with Kevin how the Samsung build gets
 > its reduced list before publishing anything for it — publishing the wrong
 > variant would push store-non-compliant stations to Samsung users.
+>
+> **Resolved 2026-07-05:** no Samsung conditional exists — one shared
+> `stations` value serves both `hk` and `hksamsung` (the flavor is dormant,
+> not in `build.gradle`), so the feed carries the shared value: exactly what
+> live RC already delivers to any Samsung install. Refresh via
+> `./refresh.sh`, which delegates to `radioapp-firebase-rest/rc.py`
+> (gcloud auth) — the firebase-tools snippet above is superseded.
 
 Sanity-diff each refreshed file against the seed before committing: the
 diff should look like recent station edits, not a wholesale replacement.
